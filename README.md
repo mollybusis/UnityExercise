@@ -25,7 +25,12 @@ In this game you should be able to:
 
 - Treat this exercise as a real world scenario where we ask you to add a new game to our existing project.
 - The original React game should remain unchanged.
+- Keep object oriented programming concepts, like polymorphism and inheritance, in mind.
 - The new code should maintain the formatting conventions of the original code.
+- You really don't need to delve too deep into how the XML serialization works. The way that this page uses root
+- The only method that needs editing in the XMLUtil class is the LoadSessionData method.
+- Look at the way that the XMLUtil methods CreateAttribute and ParseAttribute are called.
+- You will need to make a new session file for your new game.
 
 
 # Project Overview
