@@ -27,7 +27,8 @@ In this game you should be able to:
 - The original React game should remain unchanged.
 - Keep object oriented programming concepts, like polymorphism and inheritance, in mind.
 - The new code should maintain the formatting conventions of the original code.
-- You really don't need to delve too deep into how the XML serialization works. The way that this page uses root
+- You really don't need to delve too deep into how the XML serialization works. This page shoould give you a better idea of how XML works:
+    - https://www.w3schools.com/xml/xml_tree.asp
 - The only method that needs editing in the XMLUtil class is the LoadSessionData method.
 - Look at the way that the XMLUtil methods CreateAttribute and ParseAttribute are called.
 - You will need to make a new session file for your new game.
