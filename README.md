@@ -30,7 +30,6 @@ In this game you should be able to:
 - You will need to make a new session file for your new game.
 - You really don't need to delve too deep into how the XML serialization works. This page should give you a better idea of how XML works:
     - https://www.w3schools.com/xml/xml_tree.asp
-- The only method that needs editing in the XMLUtil class is the LoadSessionData method.
 - Look at the way that the XMLUtil methods CreateAttribute() and ParseAttribute() are called.
 - Make sure that the new session file's settings element is tailored to your new game.
     - Sessiondata.cs should write out the correct gameType for the general element.
