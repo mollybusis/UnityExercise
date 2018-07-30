@@ -32,7 +32,7 @@ In this game you should be able to:
     - https://www.w3schools.com/xml/xml_tree.asp
 - Look at the way that the XMLUtil methods CreateAttribute() and ParseAttribute() are called.
 - Make sure that the new session file's settings element is tailored to your new game.
-    - Sessiondata.cs should write out the correct gameType for the general element.
+    - SessionData.cs should write out the correct gameType for the general element.
     - Make sure that SessionUtil.GetSessionGameElement() returns the correct string for your new game.
 
 
