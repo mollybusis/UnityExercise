@@ -25,7 +25,15 @@ In this game you should be able to:
 
 - Treat this exercise as a real world scenario where we ask you to add a new game to our existing project.
 - The original React game should remain unchanged.
+- Keep object oriented programming concepts, like polymorphism and inheritance, in mind.
 - The new code should maintain the formatting conventions of the original code.
+- You will need to make a new session file for your new game.
+- You really don't need to delve too deep into how the XML serialization works. This page should give you a better idea of how XML works:
+    - https://www.w3schools.com/xml/xml_tree.asp
+- Look at the way that the XMLUtil methods CreateAttribute() and ParseAttribute() are called.
+- Make sure that the new session file's settings element is tailored to your new game.
+    - SessionData.cs should write out the correct gameType for the general element.
+    - Make sure that SessionUtil.GetSessionGameElement() returns the correct string for your new game.
 
 
 # Project Overview
