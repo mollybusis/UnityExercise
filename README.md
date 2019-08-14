@@ -2,7 +2,7 @@
 
 Clone this Github project and expand it by adding a new game to it.
 
-The project is made in Unity 5.3
+The project is made in Unity 2019.2
 
 It implements a very simple game called React, which briefly displays a stimulus (rectangle) and the player has to respond as quickly as possible.
 
