@@ -14,10 +14,17 @@ public static class SessionUtil
 	/// </summary>
 	public static Trial CreateGameTrial(SessionData data, XmlElement elem = null)
 	{
-		switch (data.gameType)
+        GUILog.Log("Inside CreateGameTrial");
+
+        switch (data.gameType)
 		{
 			case GameType.React:
-				return new ReactTrial(data, elem);
+                GUILog.Log("Switch case React");
+                return new ReactTrial(data, elem);
+
+			case GameType.Detect:
+                GUILog.Log("Switch case Detect");
+                return new DetectTrial(data, elem);
 
 			default:
 				return new Trial(data, elem);
@@ -34,6 +41,9 @@ public static class SessionUtil
 		{
 			case GameType.React:
 				return XMLUtil.ELEM_REACT;
+
+			case GameType.Detect:
+				return XMLUtil.ELEM_DETECT;
 
 			default:
 				return string.Empty;

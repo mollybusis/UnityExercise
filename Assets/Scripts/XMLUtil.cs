@@ -26,7 +26,8 @@ public static class XMLUtil
 	#region ELEM CONSTANTS
 
 	// Gametype elements.
-	public const string ELEM_REACT = "react";	
+	public const string ELEM_REACT = "react";
+	public const string ELEM_DETECT = "detect";
 
 	// General elements.
 	const string ELEM_SESSIONS = "sessions";
@@ -59,15 +60,28 @@ public static class XMLUtil
 		XmlNode trialsElem;
 		try
 		{
-			doc.LoadXml(sessionFile.text);
-			settingsElem = doc.SelectSingleNode("/" + ELEM_SESSION + "/" + ELEM_SETTINGS);
-			trialsElem = doc.SelectSingleNode("/" + ELEM_SESSION + "/" + ELEM_TRIALS);
+			GUILog.Log("Trying to load Xml file {0}", sessionFile.name);
 
-			sData.fileName = sessionFile.name;
-			ParseSessionSettings(settingsElem, ref sData);
-			ParseSessionTrials(trialsElem, ref sData);
+            doc.LoadXml(sessionFile.text);
+			GUILog.Log("Loaded Xml for file {0}", sessionFile.name);
 
-			if (sData.shuffleTrials)
+            settingsElem = doc.SelectSingleNode("/" + ELEM_SESSION + "/" + ELEM_SETTINGS);
+			GUILog.Log("Got the settings node");
+
+
+            trialsElem = doc.SelectSingleNode("/" + ELEM_SESSION + "/" + ELEM_TRIALS);
+            GUILog.Log("Got the trials node");
+
+            sData.fileName = sessionFile.name;
+
+            GUILog.Log("About to parse session settings");
+            ParseSessionSettings(settingsElem, ref sData);
+
+            GUILog.Log("About to parse session trials");
+            ParseSessionTrials(trialsElem, ref sData);
+            GUILog.Log("Parsed session trials");
+
+            if (sData.shuffleTrials)
 			{
 				SessionUtil.Shuffle(sData.trials);
 			}
@@ -106,7 +120,11 @@ public static class XMLUtil
 					sData.gameData = new ReactData(n as XmlElement);
 					break;
 
-				default:
+                case ELEM_DETECT:
+                    sData.gameData = new DetectData(n as XmlElement);
+                    break;
+
+                default:
 					break;
 			}
 		}
@@ -117,21 +135,33 @@ public static class XMLUtil
 	/// Parses all the Trials attributes and Trial elements.
 	/// </summary>
 	private static void ParseSessionTrials(XmlNode trialsNode, ref SessionData sData)
+
 	{
-		if (trialsNode == null)
+
+        GUILog.Log("Inside ParseSessionTrials");
+
+        if (trialsNode == null)
 		{
 			GUILog.Error("Session {0}, Trials element not found.", sData.fileName);
 			return;
 		}
 
-		sData.trials = new List<Trial>();
-		foreach (XmlNode n in trialsNode.ChildNodes)
+        GUILog.Log("Point 1");
+
+        sData.trials = new List<Trial>();
+        GUILog.Log("Point 2");
+
+        foreach (XmlNode n in trialsNode.ChildNodes)
 		{
-			switch (n.Name)
+            GUILog.Log("Point 3");
+            switch (n.Name)
 			{
 				case ELEM_TRIAL:
-					ParseTrial(n as XmlElement, ref sData);
-					break;
+                    GUILog.Log("About to parse a trial");
+                    ParseTrial(n as XmlElement, ref sData);
+                    GUILog.Log("Done parsing a trial");
+
+                    break;
 			}
 		}
 		GUILog.Log("Found {0} Trials defined in {1}", sData.trials.Count, sData.fileName);
@@ -143,21 +173,29 @@ public static class XMLUtil
 	/// </summary>
 	private static void ParseTrial(XmlElement n, ref SessionData sData)
 	{
-		Trial t = SessionUtil.CreateGameTrial(sData, n);
-		sData.trials.Add(t);
-	}
+        GUILog.Log("Inside ParseTrial");
 
-	#endregion
-	
-		
-	#region ATTRIBUTE PARSING
+        Trial t = SessionUtil.CreateGameTrial(sData, n);
 
-	/// <summary>
-	/// Parses a bool attribute.
-	/// And assigns it to the referenced variable.
-	/// Does nothing if the attribute fails to parse.
-	/// </summary>
-	public static bool ParseAttribute(XmlNode n, string att, ref bool val, bool optional = false)
+        GUILog.Log("Created trial");
+
+        sData.trials.Add(t);
+
+        GUILog.Log("Added trial");
+
+    }
+
+    #endregion
+
+
+    #region ATTRIBUTE PARSING
+
+    /// <summary>
+    /// Parses a bool attribute.
+    /// And assigns it to the referenced variable.
+    /// Does nothing if the attribute fails to parse.
+    /// </summary>
+    public static bool ParseAttribute(XmlNode n, string att, ref bool val, bool optional = false)
 	{
 		if (n.Attributes[att] != null && bool.TryParse(n.Attributes[att].Value, out val))
 		{
