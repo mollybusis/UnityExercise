@@ -150,12 +150,12 @@ public class DetectData : GameData
         XMLUtil.ParseAttribute(elem, ATTRIBUTE_DURATION, ref duration);
         XMLUtil.ParseAttribute(elem, ATTRIBUTE_RESPONSE_TIMELIMIT, ref responseTimeLimit);
         XMLUtil.ParseAttribute(elem, ATTRIBUTE_GUESS_TIMELIMIT, ref guessTimeLimit);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_RANDOM_POSITIONS, ref randomPositions);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_INCLUDE_RED , ref includeRed);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MIN_X, ref positionRangeMinX);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MAX_X, ref positionRangeMaxX);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MIN_Y, ref positionRangeMinY);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MAX_Y, ref positionRangeMaxY);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_RANDOM_POSITIONS, ref randomPositions, true);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_INCLUDE_RED , ref includeRed, true);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MIN_X, ref positionRangeMinX, true);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MAX_X, ref positionRangeMaxX, true);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MIN_Y, ref positionRangeMinY, true);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MAX_Y, ref positionRangeMaxY, true);
     }
 
 

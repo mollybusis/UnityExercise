@@ -56,3 +56,44 @@ In this game you should be able to:
 # Submission
 
 For your submission, extend this README documenting the rules of the new game, how the code works, how scoring works in the new game, and any other interesting or useful things you can think of for us to take into consideration. Then zip the git repository and send it to us.
+
+
+# New game: Detect
+
+My new version of the game is called "Detect". This seemed appropriate given the new rules: when red rectangles (those that should be ignored) appear among white ones, the user must not only react to a stimulus but also *detect* its color to determine whether to respond.
+
+## Setup
+
+Several new settings have been added to be set in the Session File. An XML file for playing Detect can be set up with all the same settings options as React, but with the following additions:
+- General settings
+  - **gameType**: must be "Detect"
+- Detect settings
+  - **randomPositions**: boolean indicating whether to randomize the position of the stimulus in each trial. Optional; default false.
+  - **includeRed**: boolean indicating whether to include red stimuli (to be ignored) in the game. Optional; default false.
+  - **positionRangeMinX**: Minimum inclusive x-value for random positions. Optional; default 0.
+  - **positionRangeMaxX**: Maximum exclusive x-value for random positions. Optional; default 0.
+  - **positionRangeMinY**: Minimum inclusive y-value for random positions. Optional; default 0.
+  - **positionRangeMaxY**: Maximum exclusive y-value for random positions. Optional; default 0.
+- Trials
+  - **positionX**: x-value for stimulus position. Only used if **randomPositions** is false. Optional; default 0.
+  - **positionY**: y-value for stimulus position. Only used if **randomPositions** is false. Optional; default 0.
+  - **isRed**: boolean indicating whether this trial's stimulus will be red (to be ignored by the user). Only used if **includeRed** is true. Optional; default false.
+  
+## Rules
+
+The rules of Detect are quite similar to those of React. The user waits for stimuli (rectangles) and presses the spacebar to react to them. White rectangles should be reacted to, but red ones should be ignored. Pressing the spacebar when a red stimulus is on screen results in a failed response. For white stimuli, as before, a response is successful only if the rectangle is onscreen and the spacebar is pressed within the Guess Limit and Response Limit times.
+
+## Scoring
+
+The output for Detect is formatted the same as that for React but with the new Session Data settings added. Within the results, accuracy for red stimuli is listed as 1 if the stimulus is ignored and 0 if it is not. Reaction time is still listed for red stimuli, appearing as the time taken before a response if the trial was a failure and 0 if it was a success (the stimulus was ignored).
+
+## About the code
+
+- I began by creating three new classes for my game: Detect, DetectData, and DetectTrial.
+  - They are subclasses of GameBase, SessionData, and Trial, respectively.
+  - Although I considered inheriting from the React classes (my reasoning being that Detect is built off of React), I realized that this would complicate things, and I would end up having to override and rewrite most of the methods anyway.
+  - I ended up reusing a lot of the React code but with various additions for the functionality of Detect.
+- Some time was spent figuring out how to correctly read in and account for my new settings in the XML file. I had to add my new gameType as a case to a couple of switch statements to get things working. Now, the new settings are read in DetectData and DetectTrial.
+- I then added the actual new elements to the game. This mostly ended up being in the Detect file. I made a second rectangle game object to act as the red ("bad") stimulus; the game switches between which to display depending on isRed for the trial and includeRed for the session. Cases were added to the success conditions to account for the red stimuli (which should be ignored).
+- The position randomization is done in DetectTrial; upon reading in position data, if the session has randomPositions set to true, the coordinates are re-assigned to random values using the provided or default ranges.
+- I made sure that the original React game is still playable and that Detect works correctly with various settings configurations.

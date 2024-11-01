@@ -38,6 +38,10 @@ public class Detect : GameBase
     /// The instructions text label.
     /// </summary>
     public Text instructionsText;
+    /// <summary>
+    /// Boolean indicating whether to include red stimuli.
+    /// </summary>
+    private bool includeRed = false;
 
 
     /// <summary>
@@ -51,8 +55,9 @@ public class Detect : GameBase
         badStimulus.SetActive(false);
 
         DetectData data = base.sessionData.gameData as DetectData;
+        includeRed = data.includeRed;
 
-        if (data.IncludeRed)
+        if (includeRed)
         {
             instructionsText.text = INSTRUCTIONS_RED;
         }
@@ -93,7 +98,7 @@ public class Detect : GameBase
         DetectTrial trial = t as DetectTrial;
         GameObject stim = normalStimulus;
 
-        if (data.IncludeRed && trial.IsRed)
+        if (includeRed && trial.IsRed)
         {
             stim = badStimulus;
         }
@@ -158,7 +163,7 @@ public class Detect : GameBase
         if (time == 0)
         {
             // No response.
-            if (trial.IsRed)
+            if (includeRed && trial.IsRed)
             {
                 //Red stimulus, so no response is correct.
                 DisplayFeedback(RESPONSE_CORRECT, RESPONSE_COLOR_GOOD);
@@ -175,7 +180,7 @@ public class Detect : GameBase
         }
         else
         {
-            if (trial.IsRed)
+            if (includeRed && trial.IsRed)
             {
                 //Red stimulus, so any kind of response is automatically a fail.
                 DisplayFeedback(RESPONSE_WRONG, RESPONSE_COLOR_BAD);

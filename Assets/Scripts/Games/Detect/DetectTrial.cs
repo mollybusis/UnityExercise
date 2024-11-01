@@ -86,8 +86,8 @@ public class DetectTrial : Trial
     {
         base.ParseGameSpecificVars(n, session);
 
-        XMLUtil.ParseAttribute(n, ATTRIBUTE_POSITION_X, ref positionX);
-        XMLUtil.ParseAttribute(n, ATTRIBUTE_POSITION_Y, ref positionY);
+        XMLUtil.ParseAttribute(n, ATTRIBUTE_POSITION_X, ref positionX, true);
+        XMLUtil.ParseAttribute(n, ATTRIBUTE_POSITION_Y, ref positionY, true);
 
         DetectData data = (DetectData)(session.gameData);
 
@@ -102,11 +102,7 @@ public class DetectTrial : Trial
             duration = data.GeneratedDuration;
         }
 
-        //By default, isRed is false. If you're not using includeRed anyway, no sense in setting it.
-        if (!XMLUtil.ParseAttribute(n, ATTRIBUTE_IS_RED, ref isRed, true))
-        {
-            isRed = false;
-        }
+        XMLUtil.ParseAttribute(n, ATTRIBUTE_IS_RED, ref isRed, true);
     }
 
 
