@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 public class Detect : GameBase
 {
-    const string INSTRUCTIONS = "Press <color=cyan>Spacebar</color> as soon as you see the square.";
+    const string INSTRUCTIONS_NO_RED = "Press <color=cyan>Spacebar</color> as soon as you see the square.";
+    const string INSTRUCTIONS_RED = "Press <color=cyan>Spacebar</color> as soon as you see a white square. Ignore red squares.";
     const string FINISHED = "FINISHED!";
     const string RESPONSE_GUESS = "No Guessing!";
     const string RESPONSE_CORRECT = "Good!";
@@ -13,15 +14,21 @@ public class Detect : GameBase
     const string RESPONSE_SLOW = "Too Slow!";
     Color RESPONSE_COLOR_GOOD = Color.green;
     Color RESPONSE_COLOR_BAD = Color.red;
+    Color STIMULUS_COLOR_NORMAL = Color.white;
+    Color STIMULUS_COLOR_BAD = Color.red;
 
     /// <summary>
     /// A reference to the UI canvas so we can instantiate the feedback text.
     /// </summary>
     public GameObject uiCanvas;
     /// <summary>
-    /// The object that will be displayed briefly to the player.
+    /// The object that is normally displayed briefly to the player.
     /// </summary>
-    public GameObject stimulus;
+    public GameObject normalStimulus;
+    /// <summary>
+    /// The object that is displayed briefly to the player and should be ignored.
+    /// </summary>
+    public GameObject badStimulus;
     /// <summary>
     /// A prefab for an animated text label that appears when a trial fails/succeeds.
     /// </summary>
@@ -39,7 +46,20 @@ public class Detect : GameBase
     {
         base.StartSession(sessionFile);
 
-        instructionsText.text = INSTRUCTIONS;
+        normalStimulus.SetActive(false);
+        badStimulus.SetActive(false);
+
+        DetectData data = base.sessionData.gameData as DetectData;
+
+        if (data.IncludeRed)
+        {
+            instructionsText.text = INSTRUCTIONS_RED;
+        }
+        else
+        {
+            instructionsText.text = INSTRUCTIONS_NO_RED;
+        }
+
         StartCoroutine(RunTrials(SessionData));
 
         return this;
@@ -68,7 +88,18 @@ public class Detect : GameBase
     /// </summary>
     protected virtual IEnumerator DisplayStimulus(Trial t)
     {
-        GameObject stim = stimulus;
+        DetectData data = base.sessionData.gameData as DetectData;
+        DetectTrial trial = t as DetectTrial;
+        GameObject stim = normalStimulus;
+
+        if (data.IncludeRed && trial.IsRed)
+        {
+            stim = badStimulus;
+        }
+
+        RectTransform rt = stim.GetComponent<RectTransform>();
+        rt.anchoredPosition = new Vector2(trial.PositionX, trial.positionY);
+
         stim.SetActive(false);
 
         yield return new WaitForSeconds(t.delay);

@@ -60,26 +60,14 @@ public static class XMLUtil
 		XmlNode trialsElem;
 		try
 		{
-			GUILog.Log("Trying to load Xml file {0}", sessionFile.name);
-
             doc.LoadXml(sessionFile.text);
-			GUILog.Log("Loaded Xml for file {0}", sessionFile.name);
-
             settingsElem = doc.SelectSingleNode("/" + ELEM_SESSION + "/" + ELEM_SETTINGS);
-			GUILog.Log("Got the settings node");
-
-
             trialsElem = doc.SelectSingleNode("/" + ELEM_SESSION + "/" + ELEM_TRIALS);
-            GUILog.Log("Got the trials node");
-
+            
             sData.fileName = sessionFile.name;
 
-            GUILog.Log("About to parse session settings");
             ParseSessionSettings(settingsElem, ref sData);
-
-            GUILog.Log("About to parse session trials");
             ParseSessionTrials(trialsElem, ref sData);
-            GUILog.Log("Parsed session trials");
 
             if (sData.shuffleTrials)
 			{

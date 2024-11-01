@@ -35,10 +35,10 @@ public class SessionData
 	/// Indicates that the Trials have been shuffled.
 	/// </summary>
 	public bool shuffleTrials = false;
-	/// <summary>
-	/// Contains data specific to the GameType.
-	/// </summary>
-	public GameData gameData = null;
+    /// <summary>
+    /// Contains data specific to the GameType.
+    /// </summary>
+    public GameData gameData = null;
 	/// <summary>
 	/// Contains data for each trial that will be used by the game.
 	/// </summary>
@@ -79,12 +79,15 @@ public class SessionData
 	{
 		XMLUtil.ParseAttribute(elem, ATTRIBUTE_GAMETYPE, ref gameType);
 		XMLUtil.ParseAttribute(elem, ATTRIBUTE_SHUFFLE, ref shuffleTrials, true);
-	}
+        
+
+    }
 
 	
 	public void WriteOutputData(ref XElement elem)
 	{
 		XMLUtil.CreateAttribute(ATTRIBUTE_GAMETYPE, gameType.ToString(), ref elem);
 		XMLUtil.CreateAttribute(ATTRIBUTE_SHUFFLE, shuffleTrials.ToString(), ref elem);
-	}
+        
+    }
 }

@@ -3,13 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
+using System.Data;
 
 public class DetectTrial : Trial
 {
+
+    #region ATTRIBUTES
+
+    public const string ATTRIBUTE_POSITION_X = "positionX";
+    public const string ATTRIBUTE_POSITION_Y = "positionY";
+    public const string ATTRIBUTE_IS_RED = "isRed";
+
+    #endregion
+
     /// <summary>
     /// The duration the stimulus will be shown for.
     /// </summary>
     public float duration = 0;
+    /// <summary>
+    /// The pre-determined X position for the stimulus in this trial.
+    /// </summary>
+    public float positionX = 0;
+    /// <summary>
+    /// The pre-determined Y position for the stimulus in this trial.
+    /// </summary>
+    public float positionY = 0;
+    /// <summary>
+    /// Indicates whether this trial should be red; ignored if includeRed is false.
+    /// </summary>
+    private bool isRed = false;
 
 
     #region ACCESSORS
@@ -19,6 +41,30 @@ public class DetectTrial : Trial
         get
         {
             return duration;
+        }
+    }
+
+    public float PositionX
+    {
+        get
+        {
+            return positionX;
+        }
+    }
+
+    public float PositionY
+    {
+        get
+        {
+            return positionY;
+        }
+    }
+
+    public bool IsRed
+    {
+        get
+        {
+            return isRed;
         }
     }
 
@@ -40,10 +86,27 @@ public class DetectTrial : Trial
     {
         base.ParseGameSpecificVars(n, session);
 
+        XMLUtil.ParseAttribute(n, ATTRIBUTE_POSITION_X, ref positionX);
+        XMLUtil.ParseAttribute(n, ATTRIBUTE_POSITION_Y, ref positionY);
+
         DetectData data = (DetectData)(session.gameData);
+
+        //We could do the randomizing here?
+        if (data.RandomPositions)
+        {
+            GUILog.Log("Pretend I'm randomizing the positions rn");
+            //call a method?
+        }
+
         if (!XMLUtil.ParseAttribute(n, DetectData.ATTRIBUTE_DURATION, ref duration, true))
         {
             duration = data.GeneratedDuration;
+        }
+
+        //By default, isRed is false. If you're not using includeRed anyway, no sense in setting it.
+        if (!XMLUtil.ParseAttribute(n, ATTRIBUTE_IS_RED, ref isRed, true))
+        {
+            isRed = false;
         }
     }
 
@@ -54,6 +117,12 @@ public class DetectTrial : Trial
     public override void WriteOutputData(ref XElement elem)
     {
         base.WriteOutputData(ref elem);
+        
+        //Assume that position X and Y will have been changed to the correct values via ref if randomly generated
+        XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_X, positionX.ToString(), ref elem);
+        XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_Y, positionY.ToString(), ref elem);
+
         XMLUtil.CreateAttribute(DetectData.ATTRIBUTE_DURATION, duration.ToString(), ref elem);
+        XMLUtil.CreateAttribute(ATTRIBUTE_IS_RED, isRed.ToString(), ref elem);
     }
 }

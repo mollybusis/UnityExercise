@@ -17,8 +17,10 @@ public class DetectData : GameData
 
     const string ATTRIBUTE_RANDOM_POSITIONS = "randomPositions";
     const string ATTRIBUTE_INCLUDE_RED = "includeRed";
-    const string ATTRIBUTE_POSITION_RANGE_MIN = "positionRangeMin";
-    const string ATTRIBUTE_POSITION_RANGE_MAX = "positionRangeMax";
+    const string ATTRIBUTE_POSITION_RANGE_MIN_X = "positionRangeMinX";
+    const string ATTRIBUTE_POSITION_RANGE_MAX_X = "positionRangeMaxX";
+    const string ATTRIBUTE_POSITION_RANGE_MIN_Y = "positionRangeMinY";
+    const string ATTRIBUTE_POSITION_RANGE_MAX_Y = "positionRangeMaxY";
 
     /// <summary>
     /// The amount of time that needs to pass before the player can respond without being penalized.
@@ -41,15 +43,23 @@ public class DetectData : GameData
     /// <summary>
     /// Indicates whether Stimuli should sometimes appear red and be ignored by the player.
     /// </summary>
-    private bool includeRed = false;
+    public bool includeRed = false;
     /// <summary>
-    /// The minimum of the range for randomly-generated Positions.
+    /// The minimum of the X range for randomly-generated Positions.
     /// </summary>
-    private float positionRangeMin = 0;
+    private float positionRangeMinX = 0;
     /// <summary>
-    /// The maximum of the range for randomly-generated Positions.
+    /// The maximum of the X range for randomly-generated Positions.
     /// </summary>
-    private float positionRangeMax = 0;
+    private float positionRangeMaxX = 0;
+    /// <summary>
+    /// The minimum of the Y range for randomly-generated Positions.
+    /// </summary>
+    private float positionRangeMinY = 0;
+    /// <summary>
+    /// The maximum of the Y range for randomly-generated Positions.
+    /// </summary>
+    private float positionRangeMaxY = 0;
 
 
 
@@ -94,19 +104,35 @@ public class DetectData : GameData
         }
     }
 
-    public float PositionRangeMin
+    public float PositionRangeMinX
     {
         get
         {
-            return positionRangeMin;
+            return positionRangeMinX;
         }
     }
 
-    public float PositionRangeMax
+    public float PositionRangeMaxX
     {
         get
         {
-            return positionRangeMax;
+            return positionRangeMaxX;
+        }
+    }
+
+    public float PositionRangeMinY
+    {
+        get
+        {
+            return positionRangeMinY;
+        }
+    }
+
+    public float PositionRangeMaxY
+    {
+        get
+        {
+            return positionRangeMaxY;
         }
     }
 
@@ -127,8 +153,10 @@ public class DetectData : GameData
         XMLUtil.ParseAttribute(elem, ATTRIBUTE_GUESS_TIMELIMIT, ref guessTimeLimit);
         XMLUtil.ParseAttribute(elem, ATTRIBUTE_RANDOM_POSITIONS, ref randomPositions);
         XMLUtil.ParseAttribute(elem, ATTRIBUTE_INCLUDE_RED , ref includeRed);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MIN, ref positionRangeMin);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MAX, ref positionRangeMax);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MIN_X, ref positionRangeMinX);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MAX_X, ref positionRangeMaxX);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MIN_Y, ref positionRangeMinY);
+        XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MAX_Y, ref positionRangeMaxY);
     }
 
 
@@ -140,7 +168,9 @@ public class DetectData : GameData
         XMLUtil.CreateAttribute(ATTRIBUTE_DURATION, duration.ToString(), ref elem);
         XMLUtil.CreateAttribute(ATTRIBUTE_RANDOM_POSITIONS, randomPositions.ToString(), ref elem);
         XMLUtil.CreateAttribute(ATTRIBUTE_INCLUDE_RED, includeRed.ToString(), ref elem);
-        XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_RANGE_MIN, positionRangeMin.ToString(), ref elem);
-        XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_RANGE_MAX, positionRangeMax.ToString(), ref elem);
+        XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_RANGE_MIN_X, positionRangeMinX.ToString(), ref elem);
+        XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_RANGE_MAX_X, positionRangeMaxX.ToString(), ref elem);
+        XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_RANGE_MIN_Y, positionRangeMinY.ToString(), ref elem);
+        XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_RANGE_MAX_Y, positionRangeMaxY.ToString(), ref elem);
     }
 }
