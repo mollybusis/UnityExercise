@@ -14,16 +14,12 @@ public static class SessionUtil
 	/// </summary>
 	public static Trial CreateGameTrial(SessionData data, XmlElement elem = null)
 	{
-        GUILog.Log("Inside CreateGameTrial");
-
         switch (data.gameType)
 		{
 			case GameType.React:
-                GUILog.Log("Switch case React");
                 return new ReactTrial(data, elem);
 
 			case GameType.Detect:
-                GUILog.Log("Switch case Detect");
                 return new DetectTrial(data, elem);
 
 			default:

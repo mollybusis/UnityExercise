@@ -12,6 +12,7 @@ public class Detect : GameBase
     const string RESPONSE_CORRECT = "Good!";
     const string RESPONSE_TIMEOUT = "Missed it!";
     const string RESPONSE_SLOW = "Too Slow!";
+    const string RESPONSE_WRONG = "Wrong!";
     Color RESPONSE_COLOR_GOOD = Color.green;
     Color RESPONSE_COLOR_BAD = Color.red;
     Color STIMULUS_COLOR_NORMAL = Color.white;
@@ -151,35 +152,60 @@ public class Detect : GameBase
     protected override void AddResult(Trial t, float time)
     {
         TrialResult r = new TrialResult(t);
+        DetectTrial trial = t as DetectTrial;
+
         r.responseTime = time;
         if (time == 0)
         {
             // No response.
-            DisplayFeedback(RESPONSE_TIMEOUT, RESPONSE_COLOR_BAD);
-            GUILog.Log("Failure! No response!");
-        }
-        else
-        {
-            if (IsGuessResponse(time))
+            if (trial.IsRed)
             {
-                // Responded before the guess limit, aka guessed.
-                DisplayFeedback(RESPONSE_GUESS, RESPONSE_COLOR_BAD);
-                GUILog.Log("Failure! Guess response! responseTime = {0}", time);
-            }
-            else if (IsValidResponse(time))
-            {
-                // Responded correctly.
+                //Red stimulus, so no response is correct.
                 DisplayFeedback(RESPONSE_CORRECT, RESPONSE_COLOR_GOOD);
                 r.success = true;
-                r.accuracy = GetAccuracy(t, time);
-                GUILog.Log("Success, yay! responseTime = {0}", time);
+                r.accuracy = 1;
+                GUILog.Log("Success, yay! No response!");
             }
             else
             {
-                // Responded too slow.
-                DisplayFeedback(RESPONSE_SLOW, RESPONSE_COLOR_BAD);
-                GUILog.Log("Failure! Slow response! responseTime = {0}", time);
+                DisplayFeedback(RESPONSE_TIMEOUT, RESPONSE_COLOR_BAD);
+                GUILog.Log("Failure! No response!");
             }
+            
+        }
+        else
+        {
+            if (trial.IsRed)
+            {
+                //Red stimulus, so any kind of response is automatically a fail.
+                DisplayFeedback(RESPONSE_WRONG, RESPONSE_COLOR_BAD);
+                GUILog.Log("Failure! Shouldn't have responded! responseTime = {0}", time);
+            }
+            else
+            {
+                if (IsGuessResponse(time))
+                {
+                    // Responded before the guess limit, aka guessed.
+                    DisplayFeedback(RESPONSE_GUESS, RESPONSE_COLOR_BAD);
+                    GUILog.Log("Failure! Guess response! responseTime = {0}", time);
+                }
+                else if (IsValidResponse(time))
+                {
+                    // Responded correctly.
+                    DisplayFeedback(RESPONSE_CORRECT, RESPONSE_COLOR_GOOD);
+                    r.success = true;
+                    r.accuracy = GetAccuracy(t, time);
+                    GUILog.Log("Success, yay! responseTime = {0}", time);
+                }
+                else
+                {
+                    // Responded too slow.
+                    DisplayFeedback(RESPONSE_SLOW, RESPONSE_COLOR_BAD);
+                    GUILog.Log("Failure! Slow response! responseTime = {0}", time);
+                }
+            }
+
+            
         }
         sessionData.results.Add(r);
     }

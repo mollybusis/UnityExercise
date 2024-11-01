@@ -91,11 +91,10 @@ public class DetectTrial : Trial
 
         DetectData data = (DetectData)(session.gameData);
 
-        //We could do the randomizing here?
         if (data.RandomPositions)
         {
-            GUILog.Log("Pretend I'm randomizing the positions rn");
-            //call a method?
+            positionX = Random.Range(data.PositionRangeMinX, data.PositionRangeMaxX);
+            positionY = Random.Range(data.PositionRangeMinY, data.PositionRangeMaxY);
         }
 
         if (!XMLUtil.ParseAttribute(n, DetectData.ATTRIBUTE_DURATION, ref duration, true))
@@ -118,11 +117,11 @@ public class DetectTrial : Trial
     {
         base.WriteOutputData(ref elem);
         
-        //Assume that position X and Y will have been changed to the correct values via ref if randomly generated
         XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_X, positionX.ToString(), ref elem);
         XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_Y, positionY.ToString(), ref elem);
-
         XMLUtil.CreateAttribute(DetectData.ATTRIBUTE_DURATION, duration.ToString(), ref elem);
         XMLUtil.CreateAttribute(ATTRIBUTE_IS_RED, isRed.ToString(), ref elem);
     }
+
+
 }

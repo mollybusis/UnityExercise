@@ -2,13 +2,13 @@
 <session>
   <settings>
     <general gameType="Detect" shuffle="false" />
-	<detect duration="1" guessTimeLimit="0.125" responseTimeLimit=".8" randomPositions="true" includeRed="true" positionRangeMinX="0" positionRangeMaxX="10" positionRangeMinY="0" positionRangeMaxY="10" />
+	<detect duration="1" guessTimeLimit="0.125" responseTimeLimit=".8" randomPositions="true" includeRed="true" positionRangeMinX="-330" positionRangeMaxX="330" positionRangeMinY="-30" positionRangeMaxY="140" />
   </settings>
   <trials>
     <trial delay="0.2" positionX="1" positionY="1" isRed="true" />
     <trial delay="0.3" positionX="0" positionY="0" isRed="true" />
     <trial delay="0.3" positionX="0" positionY="1" />
-    <trial delay="0.5" positionX="1" positionY="0" duration="2" isRed="true" />
+    <trial delay="0.5" positionX="-100" positionY="50" duration="2" isRed="true" />
     <trial delay="0.5" positionX="1" positionY="0" duration="2" isRed="true" />
     <trial delay="0.5" positionX="0" positionY="0" isRed="true" />
     <trial delay="1.0" positionX="0" positionY="0" />

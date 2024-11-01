@@ -126,28 +126,21 @@ public static class XMLUtil
 
 	{
 
-        GUILog.Log("Inside ParseSessionTrials");
-
         if (trialsNode == null)
 		{
 			GUILog.Error("Session {0}, Trials element not found.", sData.fileName);
 			return;
 		}
 
-        GUILog.Log("Point 1");
-
         sData.trials = new List<Trial>();
-        GUILog.Log("Point 2");
 
         foreach (XmlNode n in trialsNode.ChildNodes)
 		{
-            GUILog.Log("Point 3");
             switch (n.Name)
 			{
 				case ELEM_TRIAL:
-                    GUILog.Log("About to parse a trial");
+
                     ParseTrial(n as XmlElement, ref sData);
-                    GUILog.Log("Done parsing a trial");
 
                     break;
 			}
@@ -161,15 +154,9 @@ public static class XMLUtil
 	/// </summary>
 	private static void ParseTrial(XmlElement n, ref SessionData sData)
 	{
-        GUILog.Log("Inside ParseTrial");
 
         Trial t = SessionUtil.CreateGameTrial(sData, n);
-
-        GUILog.Log("Created trial");
-
         sData.trials.Add(t);
-
-        GUILog.Log("Added trial");
 
     }
 

@@ -14,7 +14,6 @@ public class DetectData : GameData
     const string ATTRIBUTE_GUESS_TIMELIMIT = "guessTimeLimit";
     const string ATTRIBUTE_RESPONSE_TIMELIMIT = "responseTimeLimit";
     public const string ATTRIBUTE_DURATION = "duration";
-
     const string ATTRIBUTE_RANDOM_POSITIONS = "randomPositions";
     const string ATTRIBUTE_INCLUDE_RED = "includeRed";
     const string ATTRIBUTE_POSITION_RANGE_MIN_X = "positionRangeMinX";
