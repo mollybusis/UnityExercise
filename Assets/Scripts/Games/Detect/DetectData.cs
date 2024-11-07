@@ -9,11 +9,8 @@ using System.Xml.Linq;
 /// Contains general Game data for the Detect gametype.
 /// </summary>
 
-public class DetectData : GameData
+public class DetectData : ReactData
 {
-    const string ATTRIBUTE_GUESS_TIMELIMIT = "guessTimeLimit";
-    const string ATTRIBUTE_RESPONSE_TIMELIMIT = "responseTimeLimit";
-    public const string ATTRIBUTE_DURATION = "duration";
     const string ATTRIBUTE_RANDOM_POSITIONS = "randomPositions";
     const string ATTRIBUTE_INCLUDE_RED = "includeRed";
     const string ATTRIBUTE_POSITION_RANGE_MIN_X = "positionRangeMinX";
@@ -21,20 +18,6 @@ public class DetectData : GameData
     const string ATTRIBUTE_POSITION_RANGE_MIN_Y = "positionRangeMinY";
     const string ATTRIBUTE_POSITION_RANGE_MAX_Y = "positionRangeMaxY";
 
-    /// <summary>
-    /// The amount of time that needs to pass before the player can respond without being penalized.
-    /// </summary>
-    private float guessTimeLimit = 0;
-    /// <summary>
-    /// The amount of time that the user has to respond; 
-    /// Starts when input becomes enabled during a Trial. 
-    /// Responses that fall within this time constraint will be marked as Successful.
-    /// </summary>
-    private float responseTimeLimit = 0;
-    /// <summary>
-    /// The visibility Duration for the Stimulus.
-    /// </summary>
-    private float duration = 0;
     /// <summary>
     /// Indicates whether random Positions should be generated for Trials. If false, pre-determined Positions are used.
     /// </summary>
@@ -64,28 +47,6 @@ public class DetectData : GameData
 
 
     #region ACCESSORS
-
-    public float GuessTimeLimit
-    {
-        get
-        {
-            return guessTimeLimit;
-        }
-    }
-    public float ResponseTimeLimit
-    {
-        get
-        {
-            return responseTimeLimit;
-        }
-    }
-    public float GeneratedDuration
-    {
-        get
-        {
-            return duration;
-        }
-    }
 
     public bool RandomPositions
     {
@@ -147,9 +108,7 @@ public class DetectData : GameData
     public override void ParseElement(XmlElement elem)
     {
         base.ParseElement(elem);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_DURATION, ref duration);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_RESPONSE_TIMELIMIT, ref responseTimeLimit);
-        XMLUtil.ParseAttribute(elem, ATTRIBUTE_GUESS_TIMELIMIT, ref guessTimeLimit);
+
         XMLUtil.ParseAttribute(elem, ATTRIBUTE_RANDOM_POSITIONS, ref randomPositions, true);
         XMLUtil.ParseAttribute(elem, ATTRIBUTE_INCLUDE_RED , ref includeRed, true);
         XMLUtil.ParseAttribute(elem, ATTRIBUTE_POSITION_RANGE_MIN_X, ref positionRangeMinX, true);
@@ -162,9 +121,7 @@ public class DetectData : GameData
     public override void WriteOutputData(ref XElement elem)
     {
         base.WriteOutputData(ref elem);
-        XMLUtil.CreateAttribute(ATTRIBUTE_GUESS_TIMELIMIT, guessTimeLimit.ToString(), ref elem);
-        XMLUtil.CreateAttribute(ATTRIBUTE_RESPONSE_TIMELIMIT, responseTimeLimit.ToString(), ref elem);
-        XMLUtil.CreateAttribute(ATTRIBUTE_DURATION, duration.ToString(), ref elem);
+
         XMLUtil.CreateAttribute(ATTRIBUTE_RANDOM_POSITIONS, randomPositions.ToString(), ref elem);
         XMLUtil.CreateAttribute(ATTRIBUTE_INCLUDE_RED, includeRed.ToString(), ref elem);
         XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_RANGE_MIN_X, positionRangeMinX.ToString(), ref elem);

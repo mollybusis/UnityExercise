@@ -97,3 +97,12 @@ The output for Detect is formatted the same as that for React but with the new S
 - I then added the actual new elements to the game. This mostly ended up being in the Detect file. I made a second rectangle game object to act as the red ("bad") stimulus; the game switches between which to display depending on isRed for the trial and includeRed for the session. Cases were added to the success conditions to account for the red stimuli (which should be ignored).
 - The position randomization is done in DetectTrial; upon reading in position data, if the session has randomPositions set to true, the coordinates are re-assigned to random values using the provided or default ranges.
 - I made sure that the original React game is still playable and that Detect works correctly with various settings configurations.
+
+## Updates 11/7
+
+- After Robin's message about taking more advantage of polymorphism, I have gone through and made all three Detect classes into subclasses of their corresponding React classes.
+    - There was, as expected, a lot of copied-over code that I was able to delete from my Detect classes. When I initially wrote them, I was focused more on making everything function correctly than structuring it in a way that made sense in terms of inheritance. I believe it should be fixed now.
+- I did end up editing the React file - I changed the access of the constants and DisplayFeedback in React to be protected.
+    - I had been re-declaring the constants in Detect, which Unity did not allow and seemed unnecessary. I could have declared them with different names, but accessing them from the parent class better takes advantage of being a subclass of it. I did the same for DisplayFeedback, making it protected so Detect could use it.
+    - Because changing these to protected in React does not change the functionality of the React game, I reasoned that it should be a valid thing to do.
+    - If this was a mistake, please let me know and I can change them all back to private as before. (But if so, I would be curious to know why these need to be private rather than protected!)

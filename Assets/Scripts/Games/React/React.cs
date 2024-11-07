@@ -12,14 +12,14 @@ using System.Collections.Generic;
 /// </summary>
 public class React : GameBase
 {
-	const string INSTRUCTIONS = "Press <color=cyan>Spacebar</color> as soon as you see the square.";
-	const string FINISHED = "FINISHED!";
-	const string RESPONSE_GUESS = "No Guessing!";
-	const string RESPONSE_CORRECT = "Good!";
-	const string RESPONSE_TIMEOUT = "Missed it!";
-	const string RESPONSE_SLOW = "Too Slow!";
-	Color RESPONSE_COLOR_GOOD = Color.green;
-	Color RESPONSE_COLOR_BAD = Color.red;
+	protected const string INSTRUCTIONS = "Press <color=cyan>Spacebar</color> as soon as you see the square.";
+    protected const string FINISHED = "FINISHED!";
+	protected const string RESPONSE_GUESS = "No Guessing!";
+	protected const string RESPONSE_CORRECT = "Good!";
+	protected const string RESPONSE_TIMEOUT = "Missed it!";
+	protected const string RESPONSE_SLOW = "Too Slow!";
+	protected Color RESPONSE_COLOR_GOOD = Color.green;
+	protected Color RESPONSE_COLOR_BAD = Color.red;
 
 	/// <summary>
 	/// A reference to the UI canvas so we can instantiate the feedback text.
@@ -164,7 +164,7 @@ public class React : GameBase
 	/// <summary>
 	/// Display visual feedback on whether the trial has been responded to correctly or incorrectly.
 	/// </summary>
-	private void DisplayFeedback(string text, Color color)
+	protected void DisplayFeedback(string text, Color color)
 	{
 		GameObject g = Instantiate(feedbackTextPrefab);
 		g.transform.SetParent(uiCanvas.transform);

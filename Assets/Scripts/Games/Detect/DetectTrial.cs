@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Data;
 
-public class DetectTrial : Trial
+public class DetectTrial : ReactTrial
 {
 
     #region ATTRIBUTES
@@ -16,10 +16,6 @@ public class DetectTrial : Trial
 
     #endregion
 
-    /// <summary>
-    /// The duration the stimulus will be shown for.
-    /// </summary>
-    public float duration = 0;
     /// <summary>
     /// The pre-determined X position for the stimulus in this trial.
     /// </summary>
@@ -35,14 +31,6 @@ public class DetectTrial : Trial
 
 
     #region ACCESSORS
-
-    public float Duration
-    {
-        get
-        {
-            return duration;
-        }
-    }
 
     public float PositionX
     {
@@ -97,10 +85,7 @@ public class DetectTrial : Trial
             positionY = Random.Range(data.PositionRangeMinY, data.PositionRangeMaxY);
         }
 
-        if (!XMLUtil.ParseAttribute(n, DetectData.ATTRIBUTE_DURATION, ref duration, true))
-        {
-            duration = data.GeneratedDuration;
-        }
+     
 
         XMLUtil.ParseAttribute(n, ATTRIBUTE_IS_RED, ref isRed, true);
     }
@@ -115,7 +100,6 @@ public class DetectTrial : Trial
         
         XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_X, positionX.ToString(), ref elem);
         XMLUtil.CreateAttribute(ATTRIBUTE_POSITION_Y, positionY.ToString(), ref elem);
-        XMLUtil.CreateAttribute(DetectData.ATTRIBUTE_DURATION, duration.ToString(), ref elem);
         XMLUtil.CreateAttribute(ATTRIBUTE_IS_RED, isRed.ToString(), ref elem);
     }
 

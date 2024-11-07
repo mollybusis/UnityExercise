@@ -296,10 +296,10 @@ MonoBehaviour:
   sessionFiles:
   - {fileID: 4900000, guid: e359ff6c204782e4c8c09af40ee84a92, type: 3}
   uiCanvas: {fileID: 1528897259}
-  normalStimulus: {fileID: 1569502919}
-  badStimulus: {fileID: 1839834721}
+  stimulus: {fileID: 1569502919}
   feedbackTextPrefab: {fileID: 156148, guid: 00142ecf8b3472e4093f9d3b9a4fd597, type: 3}
   instructionsText: {fileID: 744035645}
+  badStimulus: {fileID: 1839834721}
 --- !u!1 &711582040
 GameObject:
   m_ObjectHideFlags: 0

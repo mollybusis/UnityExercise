@@ -2,7 +2,7 @@
 <session>
   <settings>
     <general gameType="Detect" shuffle="false" />
-	<detect duration="1" guessTimeLimit="0.125" responseTimeLimit=".8" randomPositions="true" includeRed="false" positionRangeMinX="-330" positionRangeMaxX="330" positionRangeMinY="-30" positionRangeMaxY="140"/>
+	<detect duration="1" guessTimeLimit="0.125" responseTimeLimit=".8" randomPositions="true" includeRed="true" positionRangeMinX="-330" positionRangeMaxX="330" positionRangeMinY="-30" positionRangeMaxY="140"/>
   </settings>
   <trials>
     <trial delay="0.2" positionX="1" positionY="1" isRed="true" />
